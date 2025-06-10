@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+  <title>CONTACT</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>CONTACT INFO</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="education.html">Education</a>
+      <a href="skills.html">Skills</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+  <section id="contact">
+    <h2>Contact Me</h2>
+    
+    <div class="contact-container">
+      
+      <div class="contact-details">
+        <h3>Contact Details</h3>
+        <p><strong>Email:</strong> varshnih07@gmail.com</p>
+        <p><strong>Phone:</strong> +91-xxxxxxxx66</p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/feed/" target="_blank"> Click here to view my Linkedin profile</a>
+         <p><strong>Github :</strong><a href= https://github.com/apps/desktop target="_blank1">View my Github profile</a></p>
+        <img src="gth.png" width="200px" height="100px"><br><br>
+        <img src="lkd.jpg"width="200px" height="100px">
+        
+        </div>
+       
+  
+      
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <form id="contactForm">
+
+          <label>NAME:</label>
+          <input type="text" id="name" >
+          <label>EMAIL ADDRESS:</label>
+          <input type="email" id="email">
+          <label>MESSAGE:</label>
+          <textarea id="message"  rows="5" ></textarea>
+          <button type="submit">Send</button>
+          
+        </form>
+      </div>
+    </div>
+  </section>
+  <script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBft_4nSEIKnBwTC-SzIMKoKujiGyBJpO4",
+      authDomain: "my-portfolio-3c3ee.firebaseapp.com",
+      projectId: "my-portfolio-3c3ee",
+      storageBucket: "my-portfolio-3c3ee.firebasestorage.app",
+      messagingSenderId: "274350673759",
+      appId: "1:274350673759:web:c07e9f90e3fe4c57d0f0ea",
+      measurementId: "G-94L19SZT3B"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill in all the fields.");
+        return;
+      }
+
+      db.collection("contacts").add({
+        name,
+        email,
+        message,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        alert("✅ Message sent successfully!");
+        document.getElementById("contactForm").reset();
+      })
+      .catch((error) => {
+        alert("❌ Error: " + error.message);
+      });
+    });
+  </script>
+   <footer>
+    <p>&copy; 2025 Varshni H. All rights reserved.</p>
+  </footer>
+</body>
+</html>
